@@ -28,7 +28,7 @@ double r(const double x){
 }
 
 double f(const double x){
-  double out = -2 - (x - 1) * (x-x*x);
+  double out = 2 + x * x * (x - 1);
   return out;
 }
 
@@ -119,8 +119,8 @@ int main(int argc, char *argv[])
         rflag ++;
       }
     }else{
-      MPI_Recv(&u[1], 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
-      MPI_Send(&u[0], 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD);
+      MPI_Recv(&u[0], 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
+      MPI_Send(&u[1], 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD);
       if (p != P-1) {
         MPI_Recv(&u[I+1], 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD, &status);
         MPI_Send(&u[I], 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
