@@ -129,11 +129,14 @@ int main(int argc, char *argv[])
       bflag++;
     }
 
-    for (int i = 0; i < I; i++) {
+    for (i = 0; i < I; i++) {
       n = p*L+MIN(p,R)+i;
       x = n*h;
       /* local iteration step */
       unew[i] = (u[i]+u[i+2]-h*h*ff[i])/(2.0-h*h*rr[i]);
+    }
+    for (i = 0; i < I; i++) {
+    u[i+1] = unew[i]
     }
     printf("Flags: %d, %d\n", rflag, bflag);
   }
@@ -149,6 +152,33 @@ int main(int argc, char *argv[])
   4. Process p writes its portion to disk. (append to file)
   5. process p sends the signal to process p+1 (if it exists).
   */
+
+  filename = "ufile.txt"
+  double a = 1.0;
+  if (p == 0) {
+    f = fopen(filename, "w");
+
+    for (size_t i =0; i < I; i++) {
+        fprintf(f, "%f ", unew[i])
+    }
+    fclose(f)
+
+    MPI_Send(&a, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
+
+  }else{
+
+    MPI_Recv(&a, 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
+
+    pFile2 = fopen(filename, "a");
+
+    for (size_t i =0; i < I; i++) {
+        fprintf(f, "%f ", unew[i])
+    }
+    fclose(f)
+    if (p != P-1) {
+      MPI_Send(&a, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
+    }
+  }
 
   /* That's it */
   MPI_Finalize();
