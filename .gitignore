@@ -2,3 +2,4 @@ images/
 *.png
 *.pdf
 bin/
+*.txt
