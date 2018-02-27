@@ -63,7 +63,7 @@ unsigned char pixel_value(double complex d, double b, unsigned char N){
    }
 
    printf("%d\n", mod);
-   double zoom = 0.0078125;
+   double zoom = 0.00390625/4;
    //scaling and centering.
    double dx = zoom*b/(w-1); //step size
    double dy = zoom*b/(h-1);
@@ -93,7 +93,7 @@ unsigned char pixel_value(double complex d, double b, unsigned char N){
    printf("Node %d finalized, gathering data. \n",rank);
 
    unsigned char map[h*w];
-   rc = MPI_Gather(partition, partition_width*h, MPI_UNSIGNED_CHAR, &map, partition_width*h, MPI_UNSIGNED_CHAR, 0, MPI_COMM_WORLD);
+   rc = MPI_Gather(partition, partition_width*h, MPI_UNSIGNED_CHAR, &map, partition_width*h, MPI_UNSIGNED_CHAR, 0, &MPI_COMM_WORLD);
 
 if (rank == 0) {
    FILE *fp;
@@ -110,5 +110,6 @@ if (rank == 0) {
    fclose(fp);
  }
    rc = MPI_Finalize();
+
    return 0;
 }
