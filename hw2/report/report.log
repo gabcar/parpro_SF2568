@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.9.11)  24 FEB 2018 16:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.9.11)  27 FEB 2018 17:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1376,7 +1376,14 @@ File: p2e-pdftex.def 2016/02/05 v0.1u Driver-dependant file (RN,HjG,JT)
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
 
-(./report.aux)
+(./report.aux
+
+LaTeX Warning: Label `lst:label' multiply defined.
+
+
+LaTeX Warning: Label `lst:label@cref' multiply defined.
+
+)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
@@ -1484,41 +1491,68 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 59.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
 (/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 119.
 
-(./broadcast.py
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 9.
- (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd
+(./scripts/broadcast.py
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 10.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 9.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 10.
+) [3]
+(./scripts/transpose.py [4]) [5]
+(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
-[2] (./transpose.py [3]) [4]
-This exam contains 3 questions with 0 parts, 0 subparts, and 0 subsubparts.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+)
+(./scripts/redblack.c
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 2.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 2.
+)
+<plots/u_plot.png, id=115, 462.528pt x 346.896pt>
+File: plots/u_plot.png Graphic file (type png)
+ <use plots/u_plot.png>
+Package pdftex.def Info: plots/u_plot.png used on input line 281.
+(pdftex.def)             Requested size: 291.78174pt x 218.84734pt.
+
+[6] [7 <./plots/u_plot.png>]
+This exam contains 4 questions with 0 parts, 0 subparts, and 0 subsubparts.
 This exam has a total of 0 points.
 This exam has a total of 0 bonus points.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 175.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 175.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 288.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 288.
 (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 175.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 175.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 288.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 288.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 92F4818C9D0719B5F12C545A7E9F61EA;98.
+(rerunfilecheck)             Checksum: D7D7465619FEAA123B7FE239433AFF90;176.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 33699 strings out of 492995
- 753791 string characters out of 6132704
- 1143727 words of memory out of 5000000
- 36652 multiletter control sequences out of 15000+600000
+ 33880 strings out of 492995
+ 756344 string characters out of 6132704
+ 1158727 words of memory out of 5000000
+ 36785 multiletter control sequences out of 15000+600000
  11196 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,11n,96p,812b,2142s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,11n,96p,812b,2108s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -1532,11 +1566,12 @@ texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/tex
 live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
 e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
 017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-17/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on report.pdf (4 pages, 153752 bytes).
+17/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on report.pdf (7 pages, 203968 bytes).
 PDF statistics:
- 160 PDF objects out of 1000 (max. 8388607)
- 138 compressed objects within 2 object streams
- 58 named destinations out of 1000 (max. 500000)
- 29 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 223 PDF objects out of 1000 (max. 8388607)
+ 195 compressed objects within 2 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 42 words of extra memory for PDF output out of 10000 (max. 10000000)
 
