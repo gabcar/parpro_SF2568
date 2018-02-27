@@ -16,7 +16,7 @@
 
 /* define problem to be solved */
 #define N 1000   /* number of inner grid points */
-#define SMX 10 /* number of iterations */
+#define SMX 1000000 /* number of iterations */
 
 /* implement coefficient functions */
 extern double r(const double x);
@@ -28,7 +28,7 @@ double r(const double x){
 }
 
 double f(const double x){
-  double out = -x*x;
+  double out = -2 - (x - 1) * (x-x*x);
   return out;
 }
 
@@ -136,9 +136,9 @@ int main(int argc, char *argv[])
       unew[i] = (u[i]+u[i+2]-h*h*ff[i])/(2.0-h*h*rr[i]);
     }
     for (i = 0; i < I; i++) {
-    u[i+1] = unew[i]
+    u[i+1] = unew[i];
     }
-    printf("Flags: %d, %d\n", rflag, bflag);
+    //printf("Flags: %d, %d\n", rflag, bflag);
   }
 
   /* output for graphical representation */
@@ -153,15 +153,16 @@ int main(int argc, char *argv[])
   5. process p sends the signal to process p+1 (if it exists).
   */
 
-  filename = "ufile.txt"
+  const char *filename = "ufile.txt";
   double a = 1.0;
+  FILE *f;
   if (p == 0) {
     f = fopen(filename, "w");
 
     for (size_t i =0; i < I; i++) {
-        fprintf(f, "%f ", unew[i])
+        fprintf(f, "%f ", unew[i]);
     }
-    fclose(f)
+    fclose(f);
 
     MPI_Send(&a, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
 
@@ -169,12 +170,12 @@ int main(int argc, char *argv[])
 
     MPI_Recv(&a, 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
 
-    pFile2 = fopen(filename, "a");
+    f = fopen(filename, "a");
 
     for (size_t i =0; i < I; i++) {
-        fprintf(f, "%f ", unew[i])
+        fprintf(f, "%f ", unew[i]);
     }
-    fclose(f)
+    fclose(f);
     if (p != P-1) {
       MPI_Send(&a, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
     }
