@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-file_name = "ufile.txt"
+file_name = "tegner_48.txt"
 
 F = open(file_name,"r")
 
@@ -25,5 +25,5 @@ plt.xlabel("x")
 plt.ylabel("u(x)")
 ax.set_xlim(xmin=0,xmax=1)
 plt.legend(handles=[approx, true])
-fig.savefig('report/plots/u_plot.png')
+fig.savefig('report/plots/u_plot_24_processors_10e6.png')
 plt.show()

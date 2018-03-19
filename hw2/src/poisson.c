@@ -16,7 +16,7 @@
 
 /* define problem to be solved */
 #define N 1000   /* number of inner grid points */
-#define SMX 1000000 /* number of iterations */
+#define SMX 10000000 /* number of iterations */
 
 /* implement coefficient functions */
 extern double r(const double x);

@@ -355,6 +355,8 @@ INPUT scripts/broadcast.py
 INPUT scripts/broadcast.py
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT scripts/transpose.py
 INPUT scripts/transpose.py
 INPUT scripts/transpose.py
@@ -365,11 +367,12 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty
 INPUT scripts/redblack.c
 INPUT scripts/redblack.c
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT plots/u_plot.png
 INPUT ./plots/u_plot.png
 INPUT ./plots/u_plot.png
+INPUT plots/u_plot_48_processors_10e7.png
+INPUT ./plots/u_plot_48_processors_10e7.png
+INPUT ./plots/u_plot_48_processors_10e7.png
 INPUT report.aux
 INPUT ./report.out
 INPUT ./report.out

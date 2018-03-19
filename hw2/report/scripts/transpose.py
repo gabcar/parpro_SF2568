@@ -11,23 +11,19 @@ Each process will posses its location as location(p) = (row,col)
 
 """
 
-x;
 #--------- Main change from last section-----
-new_row = row - column #shift rows in process
-
-if new_row < 0:
-    new_row = new_row + P #if row is negative we need to adjust with P for cyclic shift.
+new_row = row - column #shift rows in process: 1t_a
+if new_row < 0: # 1t_a
+    new_row = new_row + P #if row is negative we need to adjust with P for cyclic shift: 1t_a
 
 for d 0->D-1:
-
-    if new < 2^d:
-        dest = col + bitflip(new_row, d) #shifted bitflip
-
-    if dest >= P:
-        dest = dest - P #adjust for cyclic shift
+    dest = col + bitflip(new_row, d) #shifted bitflip: 1t_a
+    if dest >= P: #1t_a
+        dest = dest - P #adjust for cyclic shift: 1t_a
 #--------------------------------------------
+    if (new_row < 2^d): #if row is less than 2^d we send to dest: 1t_a
+        send(x, dest, column) #t_statup + wt_data
+    elif (new_row < 2^(d+1)): #elif row is less than 2^(d+1) we recieve: 1t_a
+        recieve(x, dest, column) #t_statup + wt_data
 
-    if (new_row < 2^d): #if row is less than 2^d we send to dest
-        send(x, dest, column)
-    elif (new_row < 2^(d+1)): #elif row is less than 2^(d+1) we recieve.
-        recieve(x, dest, column)
+#total time: 3t_a + log(P)*(t_statup + wt_data + 5t_a)
