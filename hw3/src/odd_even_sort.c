@@ -115,7 +115,6 @@ void takeLow(double *x, double *a, int num_x, int num_a){
   return;
 }
 
-
 int main(int argc, char **argv)
 {
   int P, p, N, I, i, step, upsize, downsize, is_odd, upper_bound, lower_bound;
@@ -148,6 +147,34 @@ int main(int argc, char **argv)
     x[i] = ((double) random())/(RAND_MAX);
   }
 
+  FILE *f;
+  const char *filename1 = "before.txt";
+
+  if (p == 0) {
+    f = fopen(filename1, "w");
+
+    for (int i = 0; i < I; i++) {
+        fprintf(f, "%f ", unew[i]);
+    }
+    fclose(f);
+
+    MPI_Send(&g, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
+
+  }else{
+
+    MPI_Recv(&g, 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
+
+    f = fopen(filename1, "a");
+
+    for (int i =0; i < I; i++) {
+        fprintf(f, "%f ", unew[i]);
+    }
+    fclose(f);
+    if (p != P-1) {
+      MPI_Send(&g, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
+    }
+  }
+
   int right_I = (N+P-(p+1)-1)/P;
   int left_I = (N+P-(p-1)-1)/P;
 
@@ -173,29 +200,33 @@ int main(int argc, char **argv)
     evenphase = !evenphase;
   }
 
-  /*
-  int g = 1;
+  const char *filename2 = "after.txt";
+
   if (p == 0) {
-    printf("%s%d%s","Process ", p, ": " );
-    for (i = 0; i < I; i++) {
-        printf("%f ",x[i]);
+    f = fopen(filename2, "w");
+
+    for (int i = 0; i < I; i++) {
+        fprintf(f, "%f ", unew[i]);
     }
-    printf("\n" );
+    fclose(f);
+
     MPI_Send(&g, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
 
   }else{
 
     MPI_Recv(&g, 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
-    printf("%s%d%s","Process ", p, ": " );
-    for (i = 0; i < I; i++) {
-        printf("%f ", x[i]);
+
+    f = fopen(filename2, "a");
+
+    for (int i =0; i < I; i++) {
+        fprintf(f, "%f ", unew[i]);
     }
-    printf("\n" );
+    fclose(f);
     if (p != P-1) {
       MPI_Send(&g, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
     }
   }
-  */
+
   MPI_Finalize();
   return 0;
 }
