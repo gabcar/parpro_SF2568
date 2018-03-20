@@ -156,7 +156,7 @@ int main(int argc, char **argv)
   evenprocess = ((p % 2) == 0);
   evenphase = 1;
 
-  for (step = 0; step < I; step++) {
+  for (step = 0; step < P; step++) {
     if (evenphase == evenprocess) {
       if (p != P-1) {
         MPI_Send(x, I, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
