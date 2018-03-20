@@ -1,0 +1,139 @@
+\documentclass[a4paper]{exam}
+\usepackage[utf8]{inputenc}
+\printanswers\usepackage[utf8]{inputenc}
+\usepackage[top=2in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{epstopdf}
+\usepackage{csquotes}
+\usepackage{tikz}
+\usepackage{placeins}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{tikz,pgfplots}
+\usepackage{listings}
+\usepackage{mwe}
+\usepackage{systeme}
+\usepackage{qtree}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{color}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+\title{Homework 3 - Parallel Programming for Large Scale Problems - SF2568}
+\author{Gabriel Carrizo}
+\date{March 2018}
+
+%-------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\pagebreak
+\begin{questions}
+
+\section{Rank sort}
+
+
+\addpoints \question Propose a rank sort algorithm with a running time of O(logN).
+
+\begin{solution}
+  Using a shared memory set up one can create a grid with $NxN$ processors where each element contains two list entries. Each processor computes a comparison step and increments an index on a $N$ element long array according to the comparison. This implementation runs in constant time but runs the risk of race condition if two processors increment a list index at the same time.
+
+  To solve this one could do something similar, with the same $NxN$ processor mesh in a distributed memory setting. The root node would scatter the list onto the first row, which would then broadcast its element to every processor in the same column. This way each process on the $n$:th column has the same $n$th element of the list. Following this, the root node would scatter the list onto the first column instead which would broadcast its element to its row. Now we have successfully distributed the data to an $NxN$ mesh where each processor has two elements to compare.
+
+  The result of the comparison is then reduced to the first row. Which leaves us with the correct rank for the $n$th element in the first row.
+
+  We have shown in the previous homework that broadcast and scatter can be done in $O(log N)$. Reduce can similarly be performed in $O(log N)$ time through recursive doubling.
+
+  This leaves us with 5 times $log N$ actions, or 6 if we want to gather the total list with all ranks on a certain node.
+
+\end{solution}
+
+\addpoints \question How many processors are needed? What is the processor efficiency?
+
+\begin{solution}
+  Both solutions would require $N^2$ processes. The processor efficiency would be horrible as plenty of processors are idle, waiting to recieve a large portion of the time.
+
+\end{solution}
+
+\addpoints \question Would you use this algorithm in practice? Why or why not?
+
+\begin{solution}
+  No. It requires a ridiculously large number of processors and although it runs in O(log N), the hidden constant is high enough to make the algorithm inefficient. This renders it unfeasible to use the algorithm on large lists because it would require a large number of processors and for small lists the hidden constant and the high amount of communication required could make the algorithm slower than the sequential implementation.
+\end{solution}
+
+\section{Odd-Even Transposition Sort}
+
+\addpoints \question Determine wheter this code is correct, and if not, correct any mistakes.
+
+
+
+\begin{solution}
+
+  The code is not correct.
+
+\begin{itemize}
+  \item The way it works right now it will deadlock straight away since both the if statement and the else statement initialize with sends. One would fix this by changing the order of the send and recieve or just implement sendrecv.
+  \item Edge cases are missing. With an odd number of processes the last process will dead lock on the first iteration. As will the first process on the second phase.
+  \item With odd number of processors you would need another edge case since the different processes communicate in pairs. The code needs a way of handling the idle process without dead locking.
+  \item The implementation only works for the case where $N=P$
+\end{itemize}
+
+\end{solution}
+
+\begin{algorithm}
+  \begin{algorithmic}[1]
+    \State evenprocess = (rem(i,2) == 0);
+    \State evenphase = 1;
+    \For{ step = 0:N-1}
+      \If{(evenphase \& evenprocess) $\|$ (! evenphase \& ! evenprocess)}
+      \State send(a, i+1)
+      \State recv(x, i+1)
+        \If{x$<$a}
+          \State a = x;
+        \EndIf
+      \Else
+        \State recv(a, i-1);
+        \State send(x, i-1);
+        \If x$>$a
+          a = x;
+        \EndIf
+      \EndIf
+      \State evenphase = !evenphase;
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+
+\end{questions}
+\end{document}
