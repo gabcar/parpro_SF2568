@@ -146,7 +146,7 @@ int main(int argc, char **argv)
   for (i = 0; i < I; i++){
     x[i] = ((double) random())/(RAND_MAX);
   }
-
+  double g = 1.0;
   FILE *f;
   const char *filename1 = "before.txt";
 
