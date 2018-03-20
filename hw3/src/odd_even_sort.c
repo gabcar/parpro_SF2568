@@ -176,7 +176,7 @@ int main(int argc, char **argv)
 
   int g = 1;
   if (p == 0) {
-
+    printf("%s%d%s","Process ", p, ": " );
     for (i = 0; i < I; i++) {
         printf("%f ",x[i]);
     }
