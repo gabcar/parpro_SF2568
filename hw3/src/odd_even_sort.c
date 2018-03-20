@@ -139,14 +139,14 @@ int main(int argc, char **argv)
 
   /* random number generator initialization */
   srandom(p+1);
+
+  a = malloc(sizeof(x) * I);
   x = malloc(sizeof(x) * I);
-  a = malloc((sizeof(x)+1)*2);
+
   /* data generation */
-  //printf("%s", "Unsorted list: ");
   for (i = 0; i < I; i++){
     x[i] = ((double) random())/(RAND_MAX);
   }
-  //printArray(x, I);
 
   int right_I = (N+P-(p+1)-1)/P;
   int left_I = (N+P-(p-1)-1)/P;
@@ -157,16 +157,15 @@ int main(int argc, char **argv)
   evenphase = 1;
 
   for (step = 0; step < I; step++) {
-    printf("%s%d%s\n", "Process ", p, ": ");
     if (evenphase == evenprocess) {
-      if (p != P-1 /*-is_odd*evenphase*/) {
+      if (p != P-1) {
         MPI_Send(x, I, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
-        MPI_Recv(a, I, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD, &status);
+        MPI_Recv(a, right_I, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD, &status);
         takeLow(x, a, I, I);
       }
     }else{
-      if (p != 0 /*+ is_odd*!evenphase*/) {
-        MPI_Recv(a, I, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
+      if (p != 0) {
+        MPI_Recv(a, left_I, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
         MPI_Send(x, I, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD);
         takeHigh(x, a, I, I);
       }
@@ -175,14 +174,13 @@ int main(int argc, char **argv)
   }
 
 
-  //printf("%s%d%s","Process ", p, ": " );
-  //printArray(x, I);
   int g = 1;
   if (p == 0) {
 
     for (i = 0; i < I; i++) {
-        printf("%f\n ",x[i]);
+        printf("%f ",x[i]);
     }
+    printf("\n" );
     MPI_Send(&g, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
 
   }else{
@@ -192,6 +190,7 @@ int main(int argc, char **argv)
     for (i = 0; i < I; i++) {
         printf("%f ", x[i]);
     }
+    printf("\n" );
     if (p != P-1) {
       MPI_Send(&g, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
     }
