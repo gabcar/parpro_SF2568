@@ -173,7 +173,7 @@ int main(int argc, char **argv)
     evenphase = !evenphase;
   }
 
-
+  /*
   int g = 1;
   if (p == 0) {
     printf("%s%d%s","Process ", p, ": " );
@@ -195,6 +195,7 @@ int main(int argc, char **argv)
       MPI_Send(&g, 1, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
     }
   }
+  */
   MPI_Finalize();
   return 0;
 }
