@@ -154,7 +154,7 @@ int main(int argc, char **argv)
     f = fopen(filename1, "w");
 
     for (int i = 0; i < I; i++) {
-        fprintf(f, "%f ", unew[i]);
+        fprintf(f, "%f ", x[i]);
     }
     fclose(f);
 
@@ -167,7 +167,7 @@ int main(int argc, char **argv)
     f = fopen(filename1, "a");
 
     for (int i =0; i < I; i++) {
-        fprintf(f, "%f ", unew[i]);
+        fprintf(f, "%f ", x[i]);
     }
     fclose(f);
     if (p != P-1) {
@@ -206,7 +206,7 @@ int main(int argc, char **argv)
     f = fopen(filename2, "w");
 
     for (int i = 0; i < I; i++) {
-        fprintf(f, "%f ", unew[i]);
+        fprintf(f, "%f ", x[i]);
     }
     fclose(f);
 
@@ -219,7 +219,7 @@ int main(int argc, char **argv)
     f = fopen(filename2, "a");
 
     for (int i =0; i < I; i++) {
-        fprintf(f, "%f ", unew[i]);
+        fprintf(f, "%f ", x[i]);
     }
     fclose(f);
     if (p != P-1) {
