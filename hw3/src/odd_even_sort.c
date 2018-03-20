@@ -161,13 +161,13 @@ int main(int argc, char **argv)
       if (p != P-1) {
         MPI_Send(x, I, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
         MPI_Recv(a, right_I, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD, &status);
-        takeLow(x, a, I, I_right);
+        takeLow(x, a, I, right_I);
       }
     }else{
       if (p != 0) {
         MPI_Recv(a, left_I, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
         MPI_Send(x, I, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD);
-        takeHigh(x, a, I, I_left);
+        takeHigh(x, a, I, left_I);
       }
     }
     evenphase = !evenphase;
