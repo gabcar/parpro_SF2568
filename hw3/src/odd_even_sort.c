@@ -186,7 +186,7 @@ int main(int argc, char **argv)
   }else{
 
     MPI_Recv(&g, 1, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
-
+    printf("%s%d%s","Process ", p, ": " );
     for (i = 0; i < I; i++) {
         printf("%f ", x[i]);
     }
