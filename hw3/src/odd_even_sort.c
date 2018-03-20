@@ -140,7 +140,7 @@ int main(int argc, char **argv)
   /* random number generator initialization */
   srandom(p+1);
 
-  a = malloc(sizeof(x) * I);
+  a = malloc(sizeof(x) * I +1);
   x = malloc(sizeof(x) * I);
 
   /* data generation */
@@ -161,13 +161,13 @@ int main(int argc, char **argv)
       if (p != P-1) {
         MPI_Send(x, I, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD);
         MPI_Recv(a, right_I, MPI_DOUBLE, p+1, tag, MPI_COMM_WORLD, &status);
-        takeLow(x, a, I, I);
+        takeLow(x, a, I, I_right);
       }
     }else{
       if (p != 0) {
         MPI_Recv(a, left_I, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD, &status);
         MPI_Send(x, I, MPI_DOUBLE, p-1, tag, MPI_COMM_WORLD);
-        takeHigh(x, a, I, I);
+        takeHigh(x, a, I, I_left);
       }
     }
     evenphase = !evenphase;
