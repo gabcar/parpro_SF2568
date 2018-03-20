@@ -13,7 +13,7 @@
 # set tasks per node to 24 in order to disablr hyperthreading
 #SBATCH --ntasks-per-node=24
 
-module add i-compilers intelmpi
+module add gcc/5.1 openmpi/1.8-gcc-5.1
 
 mpirun -np 8 ./hello
 
